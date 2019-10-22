@@ -22,7 +22,7 @@ Example:
 python3 compressDirectory.py /home/Desktop/DATA/avian/
 ```
 
-To decompress
+To decompress:
 
 ```bash
 python3 decompress.py PATH_OF_COMPRESSED_FOLDER OUTPUT_FORMAT(f/p)
