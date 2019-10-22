@@ -11,7 +11,7 @@ To compress single file
 ```bash
 python3 compressSingleFile.py PATH_OF_THE_FILE
 ```
-This will create a folder with extention *.mstcom* which is the output of out programe. There will be two seprate file in the folder metadata.txt and ref.txt.
+This will create a folder with extention **.mstcom** which is the output of out programe. There will be two seprate file in the folder metadata.txt and ref.txt.
 
 To compress whole directory
 ```bash
@@ -27,8 +27,9 @@ To decompress
 ```bash
 python3 decompress.py PATH_OF_COMPRESSED_FOLDER OUTPUT_FORMAT(f/p)
 ```
-OUTPUT_FORMAT = f to produce decompressed file in *FASTA* format
-OUTPUT_FORMAT = p to produce decompressed file in *PHYLIP* format
+OUTPUT_FORMAT = f to produce decompressed file in **FASTA** format
+
+OUTPUT_FORMAT = p to produce decompressed file in **PHYLIP** format
 
 Example:
 ```bash
