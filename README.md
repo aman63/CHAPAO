@@ -1,5 +1,5 @@
 # CHAPAO-Likelihood-and-Hierarchical-Reference-based-Representation-of-Biomolecular-Sequences-
-CHAPAO, a novel reference-based technique for compressing MSAfiles.  This is to our knowledge the first application of reference-based technique for compressingMSAs.  Unlike conventional reference-based methods where an “extra” sequence (not includedin the input sequence to compress) is used as a reference, we used a novelhierarchical referencingtechnique where a suitable subset of the input sequences in the MSA fileis used as reference sequence.
+CHAPAO, a novel reference-based technique for compressing MSAfiles.  This is to our knowledge the first application of reference-based technique for compressingMSAs.  Unlike conventional reference-based methods where an “extra” sequence (not includedin the input sequence to compress) is used as a reference, we used a novelhierarchical referencingtechnique where a suitable subset of the input sequences in the MSA file is used as reference sequence. CHAPAO offers substantial improvement in compression gain over the existing best alternate methods for both general perpose comression algorithms ( zip, Bzip2, gzip, Lzma) and special perpose compression algorithm (COmsa and MFComspress).
 
 ## Dependencies 
 Python 3.0 or later 
