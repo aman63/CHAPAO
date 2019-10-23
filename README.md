@@ -17,7 +17,7 @@ python3 compressSingleFile.py /home/Desktop/DATA/avian/chr1_96_s.fasta 30 28
 **WINDOW_SIZE** and **OVERLAP_AMOUNT** are two important hyperparameter in our algorithm. With the increase of **WINDOW_SIZE** compression ratio generally increases but algorithm takes more time to compress. **OVERLAP_AMOUNT** should be less than **WINDOW_SIZE** and it's effect is same as **WINDOW_SIZE**, when increased compression ratio increases but requires more time. These two parameters must be integer.
 
 This will create a folder with extention **.mstcom** which is the output of the compression algorithm. There will be two seprate file in the folder metadata.txt and ref.txt.
-### Guide line for hyperparameter
+### Guideline for hyperparameter selection
 For smaller files(<100MB) **WINDOW_SIZE** of 40-50 and **OVERLAP_AMOUNT** of 38-48 will give high compression ratio with reasonable amount of time.
 For larger files(>100MB) **WINDOW_SIZE** of 5-20 and **OVERLAP_AMOUNT** of 3-18 should be used to compress files with reasonable amount of time.
 ### To compress whole directory
