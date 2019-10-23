@@ -12,7 +12,6 @@ Created on Thu Jun 14 00:58:11 2018
 @author: User
 """
 import math
-from bitstring import  BitArray
 #MAP_FOR_SYMBOL={}
 final_final_string=''#
 final_bit=bytearray()

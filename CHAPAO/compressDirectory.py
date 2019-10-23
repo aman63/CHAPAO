@@ -245,7 +245,7 @@ def getmatrix(Data, num, length, overlap,order1):
 
 
 
-def compressDataExpectation(fileName):
+def compressDataExpectation(fileName, window, opverlap):
     global BITSINNUM
     global BITSIID
     start=time.time()
@@ -263,7 +263,7 @@ def compressDataExpectation(fileName):
     for d in Data:
         own.append(getReduceVal(d))
 
-    weights1,dict = getmatrix(Data,num,20,18,order3)
+    weights1,dict = getmatrix(Data,num,window,overlap,order3)
     del order3[:]
    
     Edges = []
@@ -392,6 +392,8 @@ def compressDataExpectation(fileName):
 
 if __name__ == "__main__":
     mypath = sys.argv[1]
+    window = int(sys.argv[2])
+    overlap = int(sys.argv[3])
     from os import listdir
     from os.path import isfile, join
     #onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f))]
@@ -410,10 +412,10 @@ if __name__ == "__main__":
         
        
         try:
-            m =compressDataExpectation(f)
+            m =compressDataExpectation(f,window,overlap)
             a=0
         except:
-            array.append(0)
+            print("ERROR IN COMPRESSING FILE "+f)
             continue
         array.append(m)
 

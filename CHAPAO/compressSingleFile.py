@@ -235,7 +235,7 @@ def getmatrix(Data, num, length, overlap,order1):
 
 
 
-def compressDataExpectation(fileName):
+def compressDataExpectation(fileName, window, overlap):
     global BITSINNUM
     global BITSIID
     start=time.time()
@@ -253,7 +253,7 @@ def compressDataExpectation(fileName):
     for d in Data:
         own.append(getReduceVal(d))
 
-    weights1,dict = getmatrix(Data,num,40,32,order3)
+    weights1,dict = getmatrix(Data,num,window,overlap,order3)
     del order3[:]
    
     Edges = []
@@ -333,7 +333,9 @@ def compressDataExpectation(fileName):
 
 if __name__ == "__main__":
     filename=sys.argv[1]
+    window = int(sys.argv[2])
+    overlap = int(sys.argv[3])
     start=time.time()
-    compressDataExpectation(filename)
+    compressDataExpectation(filename,window,overlap)
     end=time.time()
-    print('\ntotal time'+str(end-start))
+    print('\nTime Required '+str(end-start))
