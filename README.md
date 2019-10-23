@@ -5,7 +5,6 @@ CHAPAO(Compressing  Alighments  using  Hierarchical  and  Probabilistic  Approac
 Python 3.0 or later 
 
 # Usage 
-CHAPAO is not still available as python package.
 
 ### To compress single file
 ```bash
