@@ -1,5 +1,5 @@
 # CHAPAO
-CHAPAO (Compressing  Alighments  using  Hierarchical  and  Probabilistic  Approach) is a novel reference-based technique for compressing MSAfiles.  This is to our knowledge the first application of reference-based technique for compressing MSAs. Unlike conventional reference-based methods where an “extra” sequence (not included in the input sequences to compress) is used as the reference, we used a novel hierarchical referencing technique where a suitable subset of the input sequences in the MSA file is used as reference sequences. CHAPAO offers substantial improvement in compression gain over the existing best alternate methods for both general purpose comression algorithms (zip, Bzip2, gzip, Lzma) and special purpose compression algorithm (CoMSA and MFCompress).
+CHAPAO (Compressing  Alignments  using  Hierarchical  and  Probabilistic  Approach) is a novel reference-based technique for compressing MSAfiles.  This is to our knowledge the first application of the reference-based technique for compressing MSAs. Unlike conventional reference-based methods where an “extra” sequence (not included in the input sequences to compress) is used as the reference, we used a novel hierarchical referencing technique where a suitable subset of the input sequences in the MSA file is used as reference sequences. CHAPAO offers a substantial improvement in compression gain over the existing best alternate methods for both general purpose comression algorithms (zip, Bzip2, gzip, Lzma) and special purpose compression algorithm (CoMSA and MFCompress).
 
 # Dependencies 
 Python 3.0 or later 
@@ -14,7 +14,7 @@ Example:
 ```bash
 python3 compressSingleFile.py /home/Desktop/DATA/avian/chr1_96_s.fasta 30 28
 ```
-**WINDOW_SIZE** and **OVERLAP_AMOUNT** are two important hyperparameter in our algorithm.  With the increase of **WINDOW_SIZE**, the compression ration generally increases at the cost of more compression time.. **OVERLAP_AMOUNT** should be less than **WINDOW_SIZE** and it's effect is similar  **WINDOW_SIZE**.
+**WINDOW_SIZE** and **OVERLAP_AMOUNT** are two important hyperparameters in our algorithm.  With the increase of **WINDOW_SIZE**, the compression ration generally increases at the cost of more compression time.. **OVERLAP_AMOUNT** should be less than **WINDOW_SIZE** and its effect is similar  **WINDOW_SIZE**.
 
 This will create a folder with extention **.mstcom** which is the output of the compression algorithm. There will be two separate files in the folder, namely metadata.txt and ref.txt.
 
