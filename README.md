@@ -7,8 +7,13 @@ Python 3.0 or later
 # Usage 
 
 ### To compress a single file
+For Linux os:
 ```bash
 python3 compressSingleFile.py PATH_OF_THE_FILE WINDOW_SIZE OVERLAP_AMOUNT
+```
+For Windows os:
+```bash
+CHAPAOC64.exe PATH_OF_THE_FILE WINDOW_SIZE OVERLAP_AMOUNT
 ```
 Example:
 ```bash
@@ -31,10 +36,15 @@ python3 compressDirectory.py /home/Desktop/DATA/avian/ 5 3
 ```
 
 ### To decompress:
-
+For Linux os:
 ```bash
 python3 decompress.py PATH_OF_COMPRESSED_FOLDER OUTPUT_FORMAT(f/p)
 ```
+For windows os:
+```bash
+CHAPAOD64.exe PATH_OF_COMPRESSED_FOLDER OUTPUT_FORMAT(f/p)
+```
+
 OUTPUT_FORMAT = f to produce decompressed files in **FASTA** format
 
 OUTPUT_FORMAT = p to produce decompressed files in **PHYLIP** format
