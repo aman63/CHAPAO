@@ -272,9 +272,15 @@ def compressDataExpectation(fileName, window, overlap):
     del weights1
    
     import os
-    file=open('sifatscompression.txt','w')
-    file2=open('fial.txt','w')
-    k=0#
+    FolderName=fileName+'.mstcom/'
+    
+    os.makedirs(os.path.dirname(FolderName), exist_ok=True)
+    fileName=FolderName+ "ref.txt"
+    fileName2= FolderName+ "metadata.txt"
+
+    file=open(fileName,'w')#
+    file2=open(fileName2,'w')#
+
     bal=0#
     total_ref=0#
     total_non_ref=0#
@@ -311,20 +317,29 @@ def compressDataExpectation(fileName, window, overlap):
     compressionLevel=9
     import lzma
     Lzip = lzma.LZMACompressor()
-    tarbz2contents1 = Lzip.compress(open("sifatscompression.txt", 'rb').read())
+    tarbz2contents1 = Lzip.compress(open(fileName, 'rb').read())
     tarbz2contents1+= Lzip.flush()
-    tarbz2contents2 = bz2.compress(open("fial.txt", 'rb').read(), compressionLevel)
+    
+ 
+    
+    size1_7 = sys.getsizeof(tarbz2contents1)
+   
 
-    file=open(filename+"ref.txt",'wb')#
-    file2=open(filename+"metadata.txt",'wb')#
+    tarbz2contents2 = bz2.compress(open(fileName2, 'rb').read(), compressionLevel)
+
+    file=open(fileName,'wb')#
+    file2=open(fileName2,'wb')#
     file.write(tarbz2contents1)
     file2.write(tarbz2contents2)
+
 
     file.flush()
     file2.flush()
 
     file.close()
     file2.close()
+
+
     size1_7 = sys.getsizeof(tarbz2contents1)
     size2_2 = sys.getsizeof(tarbz2contents2)
     size3_72 = size1_7 + size2_2

@@ -18,8 +18,8 @@ PER_CHARACTER_BIT=0#
 SKIPLIMIT = 1
 PER_CHARACTER_BIT2=0#
 MAP_FOR_SYMBOL2={}#
-output_file2 = open('ChapaoConcatenatedAlignmentswindow15overlap12.txt','w')
-output_file3 = open('timeChapaoConcatenatedAlignmentswindow15overlap12.txt','w')
+#output_file2 = open('ChapaoConcatenatedAlignmentswindow15overlap12.txt','w')
+#output_file3 = open('timeChapaoConcatenatedAlignmentswindow15overlap12.txt','w')
 
 def recursive_path(mypath): 
     for f in listdir(mypath):
@@ -359,8 +359,8 @@ def compressDataExpectation(fileName, window, opverlap):
     end=time.time()
     size2_2 = sys.getsizeof(tarbz2contents2)
     size3_72 = size1_7 + size2_2
-    output_file2.write(name + '    ' +str(size3_72) + '\n')
-    output_file2.flush()
+    #output_file2.write(name + '    ' +str(size3_72) + '\n')
+    #output_file2.flush()
 
     '''tarbz2contents1 = bz2.compress(open(fileName, 'rb').read(), compressionLevel)
     size1_2 = sys.getsizeof(tarbz2contents1)
@@ -371,13 +371,19 @@ def compressDataExpectation(fileName, window, opverlap):
      
     
    
-    output_file3.write(name + '    ' + str(end-start) + '\n')
+    #output_file3.write(name + '    ' + str(end-start) + '\n')
     
-    output_file2.flush()
+    #output_file2.flush()
     file=open(fileName,'wb')#
     file2=open(fileName2,'wb')#
     file.write(tarbz2contents1)
     file2.write(tarbz2contents2)
+
+    file.flush()
+    file2.flush()
+
+    file.close()
+    file2.close()
     #os.remove(fileName)
     #os.remove(fileName2)
    
@@ -428,4 +434,4 @@ if __name__ == "__main__":
     
     print('DONE')
 
-    output_file2.close()
+    #output_file2.close()
