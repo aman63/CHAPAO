@@ -30,9 +30,9 @@ def loadData(fileName):
     data=f.read().split("\n")
     if(">" in data[0]):
     	filetype='f'
-    if(filetype=='f'): 
+    if(filetype=='f'):
         f = open(fileName, 'r')
-        data=f.read().split(">")  
+        data=f.read().split(">")
         for i in data[1:]:
             j=i.split("\n")
             s=[]
@@ -41,8 +41,8 @@ def loadData(fileName):
                 s.extend(k)
             Data.append(''.join(s).strip().lower())
             ind+=1
-   
-       
+
+
         len_check = [ len(i) for i in Data]
         if min(len_check)!= max(len_check):
             print("FATAL ERROR > LENGTHS NOT EQUAL ")
@@ -62,7 +62,7 @@ def loadData(fileName):
             Name.append(species_name)
             #print("data load",number)
             #number+=1
-     
+
         len_check = [ len(i) for i in Data]
         print(len(len_check))
         if min(len_check)!= max(len_check):
@@ -82,7 +82,7 @@ def getProbability(Data, interval):
             if i+interval<=len(Data[0]):
                 c = Data[j][i:i+interval]
             else :
-                c = Data[j][i:] 
+                c = Data[j][i:]
             if c in probabilities[i]:
                 probabilities[i][c]+=1
             else:
@@ -103,7 +103,7 @@ def getExpectations(Data,probabilities,interval):
             else:
                 c=i[j:]
             expec += math.log(probabilities[j][c])
-        
+
         expectation.append(expec)
     return expectation
 
@@ -111,11 +111,11 @@ def getExpectations(Data,probabilities,interval):
 def getExpectations_2(Data,probabilities,interval):
     l=[]
     distance_2=[]
-    
-    
+
+
     for i in probabilities:
         l.append( max(i,key=i.get))
-    
+
     k=0
     for i in Data:
         #dis=0
@@ -132,7 +132,7 @@ def getExpectations_2(Data,probabilities,interval):
     order_3 = [ i for j,i in orderedpairs_3]
     return order_3
 
-
+'''
 def getDiff(r, t):
     Map = {}
     dict={}#
@@ -164,7 +164,7 @@ def getDiff(r, t):
 def getDiff_2(r, t):
     Map = {}
     dict={}#
-    j=-1 
+    j=-1
     for i in range(len(r)):
         if i<=j:
             continue
@@ -186,7 +186,33 @@ def getDiff_2(r, t):
        # print(j)
         cost += len(j) * BITPERBASE + (Map[j]) * (BITSINNUM)
     return cost,dict#
+'''
 
+def getDiff(r, t):
+    Map = {}
+    dict={}#
+    j=-1
+    for i in range(len(r)):
+        if i<=j:
+            continue
+        if r[i] != t[i]:
+            j = i
+            while i < len(r) and r[i] != t[i]:
+                i += 1
+            subs = t[j:i]
+            index=j#
+            j=i
+            if subs in Map.keys():
+                Map[subs] += 1
+                dict[subs]+=","+str(index)#
+            else:
+                Map[subs] = 1
+                dict[subs]=str(index)#
+    cost = 0
+    for j in Map.keys():
+       # print(j)
+        cost += len(j) * 3 + (Map[j]) * (BITSINNUM)
+    return cost,dict#
 def getReduceVal(s):
     global BITSINNUM
     cost=0
@@ -226,7 +252,7 @@ def getmatrix(Data, num, length, overlap,order1):
                 dict[i,j]={}#
                 if(i!=j and (i,j) not in weights):
                     weights[i,j],dict[i,j]=getDiff(Data[i], Data[j])#
-    
+
     for i in range(num):
         if i!=num-1:
             dict[num-1,i]={}#
@@ -243,23 +269,23 @@ def compressDataExpectation(fileName, window, overlap):
     num, Data,Name = loadData(fileName)#
     BITSIID = int(math.log10(num))*4
     BITSINNUM = int(math.log10(len(Data[0])))*4
-  
+
     prob = getProbability(Data,1)
-   
+
 
     order3 = getExpectations_2(Data,prob,1)
-    
+
     own = []
     for d in Data:
         own.append(getReduceVal(d))
 
     weights1,dict = getmatrix(Data,num,window,overlap,order3)
     del order3[:]
-   
+
     Edges = []
     for i in range(num):
         for j in range(num):
-            
+
             if(i==j):
                 Edges.append((0,i+1,own[i],0,i+1))
             elif (i,j) not in weights1:
@@ -268,12 +294,12 @@ def compressDataExpectation(fileName, window, overlap):
                 Edges.append((i+1,j+1,weights1[i,j],i+1,j+1))
     solution, refmap2 =Dmst.dmst(num+1,Edges,0)
     del own[:]
-    
+
     del weights1
-   
+
     import os
     FolderName=fileName+'.mstcom/'
-    
+
     os.makedirs(os.path.dirname(FolderName), exist_ok=True)
     fileName=FolderName+ "ref.txt"
     fileName2= FolderName+ "metadata.txt"
@@ -289,10 +315,10 @@ def compressDataExpectation(fileName, window, overlap):
         j=i[0]
         k=i[1]
         bal+=1#
-        
+
         if(i[0]==0):
             total_ref+=1
-           
+
             file.write(str(i[1]-1)+','+Data[i[1]-1]+"\n")
         else :
             total_non_ref+=1
@@ -303,15 +329,15 @@ def compressDataExpectation(fileName, window, overlap):
         fff=fff+"|"+i
     fff+="\n"
     file.write(fff)
-  
+
     file2.write(compression2.final_final_string)
     file2.flush()
-   
+
 
     file2.close()
     file.close()
 
-    
+
     #print("ref",total_ref,"non",total_non_ref)
     import bz2
     compressionLevel=9
@@ -319,11 +345,11 @@ def compressDataExpectation(fileName, window, overlap):
     Lzip = lzma.LZMACompressor()
     tarbz2contents1 = Lzip.compress(open(fileName, 'rb').read())
     tarbz2contents1+= Lzip.flush()
-    
- 
-    
+
+
+
     size1_7 = sys.getsizeof(tarbz2contents1)
-   
+
 
     tarbz2contents2 = bz2.compress(open(fileName2, 'rb').read(), compressionLevel)
 
