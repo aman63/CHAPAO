@@ -4,7 +4,6 @@ CHAPAO (Compressing  Alignments  using  Hierarchical  and  Probabilistic  Approa
 CHAPAO is currently under active development with an aim to develop platform independent user friendly executable and appropriate installer. The current version has been tested more on Linux operating system than on Windows.  
 
 # Dependencies 
-For Linux OS:
 Python 3.0 or later 
 
 # Usage 
