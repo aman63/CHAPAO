@@ -7,10 +7,6 @@ CHAPAO is currently under active development with an aim to develop platform ind
 For Linux OS:
 Python 3.0 or later 
 
-For Windows OS:
-python 3.7
-
-
 # Usage 
 ### Input file format
 Input files should be in FASTA or PHYLIP format.
@@ -21,6 +17,7 @@ For Linux OS:
 python3 compressSingleFile.py PATH_OF_THE_FILE WINDOW_SIZE OVERLAP_AMOUNT
 ```
 For Windows OS:
+
 ```bash
 CHAPAOC64.exe PATH_OF_THE_FILE WINDOW_SIZE OVERLAP_AMOUNT
 ```
