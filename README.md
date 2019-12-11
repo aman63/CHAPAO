@@ -15,11 +15,6 @@ For Linux OS:
 ```bash
 python3 compressSingleFile.py PATH_OF_THE_FILE WINDOW_SIZE OVERLAP_AMOUNT
 ```
-For Windows OS:
-
-```bash
-CHAPAOC64.exe PATH_OF_THE_FILE WINDOW_SIZE OVERLAP_AMOUNT
-```
 Example:
 ```bash
 python3 compressSingleFile.py /home/Desktop/DATA/avian/chr1_96_s.fasta 30 28
@@ -45,10 +40,7 @@ For Linux OS:
 ```bash
 python3 decompress.py PATH_OF_COMPRESSED_FOLDER OUTPUT_FORMAT(f/p)
 ```
-For windows OS:
-```bash
-CHAPAOD64.exe PATH_OF_COMPRESSED_FOLDER OUTPUT_FORMAT(f/p)
-```
+
 
 OUTPUT_FORMAT = f to produce decompressed files in **FASTA** format
 
