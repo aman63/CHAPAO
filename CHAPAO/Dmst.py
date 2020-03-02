@@ -156,7 +156,7 @@ def dmst(vertices, test, root=0):
     dfs(0,0)
     answer = ans[:]
     ans.clear()
-    print( "answe length ", len(answer))
+    #print( "answe length ", len(answer))
 
     return ret, answer
 

@@ -18,10 +18,9 @@ PER_CHARACTER_BIT=0#
 SKIPLIMIT = 1
 PER_CHARACTER_BIT2=0#
 MAP_FOR_SYMBOL2={}#
-#output_file2 = open('ChapaoConcatenatedAlignmentswindow15overlap12.txt','w')
-#output_file3 = open('timeChapaoConcatenatedAlignmentswindow15overlap12.txt','w')
 
-def recursive_path(mypath):
+
+def recursive_path(mypath): 
     for f in listdir(mypath):
         if isfile(join(mypath, f)):
             #print(mypath,' ', f)
@@ -40,9 +39,9 @@ def loadData(fileName):
     data=f.read().split("\n")
     if(">" in data[0]):
     	filetype='f'
-    if(filetype=='f'):
+    if(filetype=='f'): 
         f = open(fileName, 'r')
-        data=f.read().split(">")
+        data=f.read().split(">")  
         for i in data[1:]:
             j=i.split("\n")
             s=[]
@@ -51,8 +50,8 @@ def loadData(fileName):
                 s.extend(k)
             Data.append(''.join(s).strip().lower())
             ind+=1
-
-
+   
+       
         len_check = [ len(i) for i in Data]
         if min(len_check)!= max(len_check):
             print("FATAL ERROR > LENGTHS NOT EQUAL ")
@@ -72,7 +71,7 @@ def loadData(fileName):
             Name.append(species_name)
             #print("data load",number)
             #number+=1
-
+     
         len_check = [ len(i) for i in Data]
         print(len(len_check))
         if min(len_check)!= max(len_check):
@@ -92,7 +91,7 @@ def getProbability(Data, interval):
             if i+interval<=len(Data[0]):
                 c = Data[j][i:i+interval]
             else :
-                c = Data[j][i:]
+                c = Data[j][i:] 
             if c in probabilities[i]:
                 probabilities[i][c]+=1
             else:
@@ -113,7 +112,7 @@ def getExpectations(Data,probabilities,interval):
             else:
                 c=i[j:]
             expec += math.log(probabilities[j][c])
-
+        
         expectation.append(expec)
     return expectation
 
@@ -121,11 +120,11 @@ def getExpectations(Data,probabilities,interval):
 def getExpectations_2(Data,probabilities,interval):
     l=[]
     distance_2=[]
-
-
+    
+    
     for i in probabilities:
         l.append( max(i,key=i.get))
-
+    
     k=0
     for i in Data:
         #dis=0
@@ -142,6 +141,7 @@ def getExpectations_2(Data,probabilities,interval):
     order_3 = [ i for j,i in orderedpairs_3]
     return order_3
 
+
 def getDiff(r, t):
     Map = {}
     dict={}#
@@ -151,7 +151,9 @@ def getDiff(r, t):
             continue
         if r[i] != t[i]:
             j = i
-            while i < len(r) and r[i] != t[i]:
+            while i < len(r) and (r[i] != t[i] or ((i+1)<len(r) and r[i:i+SKIPLIMIT]!=t[i:i+SKIPLIMIT])) :
+                if( r[i]==t[i]):
+                    if(t[j:i] in Map.keys()): break
                 i += 1
             subs = t[j:i]
             index=j#
@@ -165,13 +167,13 @@ def getDiff(r, t):
     cost = 0
     for j in Map.keys():
        # print(j)
-        cost += len(j) * 3 + (Map[j]) * (BITSINNUM)
+        cost += len(j) * BITPERBASE + (Map[j]) * (BITSINNUM)
     return cost,dict#
 
 def getDiff_2(r, t):
     Map = {}
     dict={}#
-    j=-1
+    j=-1 
     for i in range(len(r)):
         if i<=j:
             continue
@@ -211,7 +213,7 @@ def getReduceVal(s):
         cost+=BITSINNUM+6
     else:
         cost+=count*3
-    return cost
+    return cost/2
 
 
 def getmatrix(Data, num, length, overlap,order1):
@@ -230,10 +232,11 @@ def getmatrix(Data, num, length, overlap,order1):
             #m2=order1[i:i+length]
         for i in m:
             for j in m:
-                dict[i,j]={}#
+                
                 if(i!=j and (i,j) not in weights):
+                    dict[i,j]={}#
                     weights[i,j],dict[i,j]=getDiff(Data[i], Data[j])#
-
+    
     for i in range(num):
         if i!=num-1:
             dict[num-1,i]={}#
@@ -242,7 +245,7 @@ def getmatrix(Data, num, length, overlap,order1):
 
 
 
-def compressDataExpectation(fileName, window, opverlap):
+def compressDataExpectation(fileName, window, opverlap,output_file2,output_file3):
     global BITSINNUM
     global BITSIID
     start=time.time()
@@ -250,23 +253,23 @@ def compressDataExpectation(fileName, window, opverlap):
     num, Data,Name = loadData(fileName)#
     BITSIID = int(math.log10(num))*4
     BITSINNUM = int(math.log10(len(Data[0])))*4
-
+  
     prob = getProbability(Data,1)
-
+   
 
     order3 = getExpectations_2(Data,prob,1)
-
+    
     own = []
     for d in Data:
         own.append(getReduceVal(d))
 
     weights1,dict = getmatrix(Data,num,window,overlap,order3)
     del order3[:]
-
+   
     Edges = []
     for i in range(num):
         for j in range(num):
-
+            
             if(i==j):
                 Edges.append((0,i+1,own[i],0,i+1))
             elif (i,j) not in weights1:
@@ -275,25 +278,25 @@ def compressDataExpectation(fileName, window, opverlap):
                 Edges.append((i+1,j+1,weights1[i,j],i+1,j+1))
     solution, refmap2 =Dmst.dmst(num+1,Edges,0)
     del own[:]
-
+    
     del weights1
     #New_mem2 = solution + +BITSIID*num
-
-
-
-
+   
+    
+    
+    
     import os
-    FolderName=fileName+'.mstcom/'
-
+    FolderName=fileName+'.mstcom\\'
+    gg=fileName
     os.makedirs(os.path.dirname(FolderName), exist_ok=True)
     fileName=FolderName+ "ref.txt"
     fileName2= FolderName+ "metadata.txt"
 
     file=open(fileName,'w')#
     file2=open(fileName2,'w')#
-
-
-
+   
+    
+   
     k=0#
     bal=0#
     total_ref=0#
@@ -303,10 +306,10 @@ def compressDataExpectation(fileName, window, opverlap):
         j=i[0]
         k=i[1]
         bal+=1#
-
+        
         if(i[0]==0):
             total_ref+=1
-
+           
             file.write(str(i[1]-1)+','+Data[i[1]-1]+"\n")
         else :
             total_non_ref+=1
@@ -317,60 +320,67 @@ def compressDataExpectation(fileName, window, opverlap):
         fff=fff+"|"+i
     fff+="\n"
     file.write(fff)
-
+    
    # compression2.write_in_binary_in_file(num,koy_number_data_index,file)
-
+   
     file2.write(compression2.final_final_string)
     file2.flush()
-
+   
 
     file2.close()
     file.close()
 
-
+    
     print("ref",total_ref,"non",total_non_ref)
-
+     
     n1 = fileName.split('/')
     name = ''
     for xx in n1:
         if(xx !='sifatscompression.txt'):
             name += xx + '/'
 
-    name = name[:-8]
-
+    name = name[:-8] 
+    
     import bz2
     compressionLevel=9
-    #tarbz2contents1 = bz2.compress(open(fileName, 'rb').read(), compressionLevel)
-    #tarbz2contents2 = bz2.compress(open(fileName2, 'rb').read(), compressionLevel)
+    tarbz2contents1 = bz2.compress(open(fileName, 'rb').read(), compressionLevel)
+    tarbz2contents2 = bz2.compress(open(fileName2, 'rb').read(), compressionLevel)
+    '''
     import lzma
     Lzip = lzma.LZMACompressor()
     tarbz2contents1 = Lzip.compress(open(fileName, 'rb').read())
     tarbz2contents1+= Lzip.flush()
-
-
-
-    size1_7 = sys.getsizeof(tarbz2contents1)
-
-
-    tarbz2contents2 = bz2.compress(open(fileName2, 'rb').read(), compressionLevel)
+    '''
     end=time.time()
+    
+    size1_7 = sys.getsizeof(tarbz2contents1)
+   
+
+    #tarbz2contents2 = bz2.compress(open(fileName2, 'rb').read(), compressionLevel)
+    #Lzip = lzma.LZMACompressor()
+    #tarbz2contents2 = Lzip.compress(open(fileName2, 'rb').read())
+    #tarbz2contents2+= Lzip.flush()
+	
+    
     size2_2 = sys.getsizeof(tarbz2contents2)
     size3_72 = size1_7 + size2_2
-    #output_file2.write(name + '    ' +str(size3_72) + '\n')
-    #output_file2.flush()
+    output_file2.write(gg + '    ' +str(size3_72) + '\n')
+    output_file2.flush()
 
-    '''tarbz2contents1 = bz2.compress(open(fileName, 'rb').read(), compressionLevel)
+    #tarbz2contents1 = bz2.compress(open(fileName, 'rb').read(), compressionLevel)
+    '''
     size1_2 = sys.getsizeof(tarbz2contents1)
     size3_27 = size1_2 + size2_7
     output_file2.write(name + 'sifat bzip fial 7    ' + str(size1_2)+ '    '+str(size2_7)+ '    '+str(size3_27) + '\n')
-    output_file2.flush()'''
+    output_file2.flush()
+	'''
 
-
-
-
-    #output_file3.write(name + '    ' + str(end-start) + '\n')
-
-    #output_file2.flush()
+     
+    
+   
+    output_file3.write(gg + '    ' + str(end-start) + '\n')
+    
+    output_file2.flush()
     file=open(fileName,'wb')#
     file2=open(fileName2,'wb')#
     file.write(tarbz2contents1)
@@ -383,20 +393,23 @@ def compressDataExpectation(fileName, window, opverlap):
     file2.close()
     #os.remove(fileName)
     #os.remove(fileName2)
+   
+  
+   
 
-
-
-
-    compression2.MAP_FOR_SYMBOL2={}
+    compression2.MAP_FOR_SYMBOL2={} 
     compression2.final_final_string=''#
     compression2.final_bit=bytearray()
     compression2.final_bit2=bytearray()
-    compression2.final_final_string2=''
+    compression2.final_final_string2='' 
 
 if __name__ == "__main__":
     mypath = sys.argv[1]
     window = int(sys.argv[2])
     overlap = int(sys.argv[3])
+    output_file2 = open('Chapao'+str(mypath)+'window'+str(window)+'overlap'+str(overlap)+'.txt','w')
+    output_file3 = open('timeChapao'+str(mypath)+'window'+str(window)+'overlap'+str(overlap)+'.txt','w')
+    print(mypath)
     from os import listdir
     from os.path import isfile, join
     #onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f))]
@@ -406,16 +419,17 @@ if __name__ == "__main__":
     #onlyfiles = onlyfiles[:10]
     array=[]
 
-
+ 
     #m = compressDataExpectation('MSA/23S.E/input.fasta_clustalo')
     n=0
-    for f in onlyfiles:
+    for f in onlyfiles: 
         if 'bzip'in f or 'sifat' in f or 'fial' in f or 'txt' in f or 'mapping' in f or 'tree' in f or 'mt' in f or 'tt' in f:
             continue
-
-
+        
+        
+       
         try:
-            m =compressDataExpectation(f,window,overlap)
+            m =compressDataExpectation(f,window,overlap,output_file2,output_file3)
             a=0
         except:
             print("ERROR IN COMPRESSING FILE "+f)
@@ -423,12 +437,12 @@ if __name__ == "__main__":
         array.append(m)
 
         n+=1
-
-
+        
+        
         print(f+'  file number ', n)
 
-
-
+    
+    
     print('DONE')
 
-    #output_file2.close()
+    output_file2.close()

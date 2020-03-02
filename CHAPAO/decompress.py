@@ -151,26 +151,32 @@ def convert__from_ref_to_non_ref(r,t):
 if __name__ == "__main__":
     filename=sys.argv[1]
     filetype= sys.argv[2]
+    print(filename)
     highest_index2=0
-    file = open(filename+"metadata.txt", "rb")	       
+    file = open(filename+"\\metadata.txt", "rb")	       
     a=file.read()
     a=bz2.decompress(a)
-    a= a.decode("utf-8")
-
+    a=str(a)
+    a=a.replace('\\r\\n','\n')
+    a=a.replace('b\'','')
+    a=a.replace('\'','')
     #print(a)
-   
     current_index=0
     file.close()
 
     sequence_number_indexing=0#cuto
-    f=open(filename+"ref.txt","rb")
+    f=open(filename+"\\ref.txt","rb")
     data=f.read()
-    Lzip = lzma.LZMADecompressor()
-    data=Lzip.decompress(data)
-    data= data.decode("utf-8")
-    
-    f.close()
+    data=bz2.decompress(data)
     data=str(data)
+    
+    data=data.replace('\\r\\n','\n')
+    data=data.replace('b\'','')
+    data=data.replace('\'','')
+    #print(data)
+    f.close()
+    
+    #data=str(data)
     Name={}
     aa, b,Name,highest_index2 = decompressData(data)
    
@@ -221,7 +227,7 @@ if __name__ == "__main__":
                         o+=1
                         
                 c+=1
-    agsa=open(filename+"Decompressed.txt",'w')
+    agsa=open(filename+"\\Decompressed.txt",'w')
     if(filetype=='f'):
         for i in range(len__):
             agsa.write(">"+Name[i]+"\n")
@@ -236,3 +242,4 @@ if __name__ == "__main__":
             agsa.write(final_list[i]+"\n")
         
     agsa.close()
+	
