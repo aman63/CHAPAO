@@ -19,9 +19,9 @@ Example:
 ```bash
 python3 compressSingleFile.py /home/Desktop/DATA/avian/chr1_96_s.fasta 30 28
 ```
-**WINDOW_SIZE** and **OVERLAP_AMOUNT** are two important hyperparameters in our algorithm.  With the increase of **WINDOW_SIZE**, the compression gain generally increases at the cost of more compression time. **OVERLAP_AMOUNT** should be less than **WINDOW_SIZE** and its effect is similar to  **WINDOW_SIZE**.
-
 This will create a folder with extention **.mstcom** which is the output of the compression algorithm. There will be two separate files in the folder, namely metadata.txt and ref.txt.
+
+**WINDOW_SIZE** and **OVERLAP_AMOUNT** are two important hyperparameters in our algorithm.  With the increase of **WINDOW_SIZE**, the compression gain generally increases at the cost of more compression time. **OVERLAP_AMOUNT** should be less than **WINDOW_SIZE** and its effect is similar to  **WINDOW_SIZE**.
 
 ### Guidelines for hyperparameter selection
 For smaller files (<100MB) **WINDOW_SIZE** of 40-50 and **OVERLAP_AMOUNT** of 35-48 will give a high compression ratio within reasonable amounts of time.
