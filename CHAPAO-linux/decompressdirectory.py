@@ -43,7 +43,7 @@ if __name__ == "__main__":
         #if 'mst' not in f and '.part' not in f:
         if '.part' not in f :
             start=time.time()
-            os.system('python CHAPAOD64.py '+f+' '+str(fasta))
+            os.system('python decompress.py '+f+' '+str(fasta))
             #os.system('python CHAPAOD64.py '+f+'.mstcom'+' f')
             end=time.time()
             outputfile3.write(f+' '+str(end-start)+'\n')

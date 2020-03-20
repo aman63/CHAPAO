@@ -245,7 +245,7 @@ def getmatrix(Data, num, length, overlap,order1):
 
 
 
-def compressDataExpectation(fileName, window, opverlap,output_file2,output_file3):
+def compressDataExpectation(fileName, window, opverlap):
     global BITSINNUM
     global BITSIID
     start=time.time()
@@ -364,8 +364,6 @@ def compressDataExpectation(fileName, window, opverlap,output_file2,output_file3
     
     size2_2 = sys.getsizeof(tarbz2contents2)
     size3_72 = size1_7 + size2_2
-    output_file2.write(gg + '    ' +str(size3_72) + '\n')
-    output_file2.flush()
 
     #tarbz2contents1 = bz2.compress(open(fileName, 'rb').read(), compressionLevel)
     '''
@@ -378,9 +376,6 @@ def compressDataExpectation(fileName, window, opverlap,output_file2,output_file3
      
     
    
-    output_file3.write(gg + '    ' + str(end-start) + '\n')
-    
-    output_file2.flush()
     file=open(fileName,'wb')#
     file2=open(fileName2,'wb')#
     file.write(tarbz2contents1)
@@ -407,8 +402,6 @@ if __name__ == "__main__":
     mypath = sys.argv[1]
     window = int(sys.argv[2])
     overlap = int(sys.argv[3])
-    output_file2 = open('Chapao'+str(mypath)+'window'+str(window)+'overlap'+str(overlap)+'.txt','w')
-    output_file3 = open('timeChapao'+str(mypath)+'window'+str(window)+'overlap'+str(overlap)+'.txt','w')
     print(mypath)
     from os import listdir
     from os.path import isfile, join
@@ -427,9 +420,9 @@ if __name__ == "__main__":
             continue
         
         
-       
+        #m =compressDataExpectation(f,window,overlap)
         try:
-            m =compressDataExpectation(f,window,overlap,output_file2,output_file3)
+            m =compressDataExpectation(f,window,overlap)
             a=0
         except:
             print("ERROR IN COMPRESSING FILE "+f)
@@ -444,5 +437,3 @@ if __name__ == "__main__":
     
     
     print('DONE')
-
-    output_file2.close()
