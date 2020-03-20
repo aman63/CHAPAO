@@ -1,16 +1,16 @@
 ## CHAPAO
-CHAPAO (Compressing  Alignments  using  Hierarchical  and  Probabilistic  Approach) is a novel reference-based technique for compressing MSA files. The name of this method is inspired from a bengali word “চাপাও”, which means “compress” or “squeeze”, and is pronounced the same way as CHAPAO (/chɑ:paʊ/). This is to our knowledge the first application of the reference-based technique for compressing MSAs. Unlike conventional reference-based methods where an “extra” sequence (not included in the input sequences to compress) is used as the reference, we used a novel hierarchical referencing technique where a suitable subset of the input sequences in the MSA file is used as reference sequences. CHAPAO offers a substantial improvement in compression gain over the existing best alternate methods for both general purpose compression algorithms (zip, Bzip2, gzip) and special purpose compression algorithm (MFCompress).
+**CHAPAO** (Compressing  Alignments  using  Hierarchical  and  Probabilistic  Approach) is a novel reference-based technique for compressing MSA files. The name of this method is inspired from a bengali word **“চাপাও”**, which means “compress” or “squeeze”, and is pronounced the same way as CHAPAO (/chɑ:paʊ/). This is to our knowledge the first application of the reference-based technique for compressing MSAs. Unlike conventional reference-based methods where an “extra” sequence (not included in the input sequences to compress) is used as the reference, we used a novel hierarchical referencing technique where a suitable subset of the input sequences in the MSA file is used as reference sequences. CHAPAO offers a substantial improvement in compression gain over the existing best alternate methods for both general purpose compression algorithms (zip, Bzip2, gzip) and special purpose compression algorithm (MFCompress).
 
-CHAPAO is currently under active development with an aim to develop platform independent user friendly executable and appropriate installer. The current version has been tested more on Windows operating system than on Linux.  
+CHAPAO is currently under active development with an aim to develop platform independent user friendly executable and appropriate installer. 
 
 # Dependencies 
 Python 3.0 or later 
 
 # Usage 
-### Input file format
+### Input File Format
 Input files should be in FASTA or PHYLIP format.
 
-### To compress a single file
+### Compressing Single File
 
 ```bash
 python3 compressSingleFile.py PATH_OF_THE_FILE WINDOW_SIZE OVERLAP_AMOUNT
@@ -26,7 +26,7 @@ This will create a folder with extention **.mstcom** which is the output of the 
 ### Guidelines for hyperparameter selection
 For smaller files (<100MB) **WINDOW_SIZE** of 40-50 and **OVERLAP_AMOUNT** of 35-48 will give a high compression ratio within reasonable amounts of time.
 For larger files (>100MB) **WINDOW_SIZE** of 5-20 and **OVERLAP_AMOUNT** of 3-18 should be used to compress files within reasonable amounts of time.
-### To compress a directory
+### Compressing Directory
 ```bash
 python3 compressDirectory.py PATH_OF_THE_DIRECTORY
 ```
@@ -35,7 +35,7 @@ Example:
 python3 compressDirectory.py /home/Desktop/DATA/avian/ 5 3
 ```
 
-### To decompress:
+### Decompressing:
 
 ```bash
 python3 decompress.py PATH_OF_COMPRESSED_FOLDER OUTPUT_FORMAT(f/p)
